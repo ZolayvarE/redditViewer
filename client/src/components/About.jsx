@@ -5,7 +5,7 @@ var About = () => {
   return (
     <div>
       <h3>About</h3>
-      <p>This page was coded using React</p>
+      <p>This page was coded by Eric Zolayvar using React</p>
     </div>
   );
 };
