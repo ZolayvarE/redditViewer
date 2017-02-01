@@ -26600,11 +26600,39 @@
 	  }
 
 	  _createClass(App, [{
+	    key: 'getPosts',
+	    value: function getPosts(addOntoExisting) {
+	      if (!_mindful2.default.get('posts') || !addOntoExisting) {
+	        _mindful2.default.set('posts', []);
+	      }
+
+	      var subreddits = _mindful2.default.get('subreddits');
+	      if (!subreddits.length) {
+	        subreddits = ['all'];
+	      }
+
+	      var baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '.json';
+	      var queryString = ['limit=25'].join('&');
+
+	      fetch(baseURL + '?' + queryString).then(function (response) {
+	        return response.json();
+	      }).then(function (json) {
+	        console.log('got response!');
+	        _mindful2.default.update('posts', function (posts) {
+	          return posts.concat(json.data.children);
+	        });
+	      });
+	    }
+	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      if (!_mindful2.default.get('subreddits')) {
-	        _mindful2.default.set('subreddits', []);
+	        _mindful2.default.retain('subreddits', []);
 	      }
+
+	      this.getPosts();
+
+	      _mindful2.default.set('getPosts', this.getPosts.bind(this));
 	    }
 	  }, {
 	    key: 'render',
@@ -26664,7 +26692,7 @@
 	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/subreddits' },
-	          'About'
+	          'Configure Subreddits'
 	        )
 	      )
 	    )
@@ -26716,36 +26744,8 @@
 	  }
 
 	  _createClass(Home, [{
-	    key: 'getPosts',
-	    value: function getPosts() {
-	      var subreddits = _mindful2.default.get('subreddits');
-	      if (!subreddits.length) {
-	        subreddits = ['all'];
-	      }
-
-	      _mindful2.default.set('posts', []);
-	      subreddits.forEach(function (subreddit) {
-
-	        var link = 'https://www.reddit.com/r/' + subreddit + '.json?count=50';
-	        console.log(link);
-	        fetch(link).then(function (response) {
-	          return response.json();
-	        }).then(function (json) {
-	          _mindful2.default.update('posts', function (posts) {
-	            return posts.concat(json.data.children);
-	          });
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.getPosts();
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log('rendering Home!');
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -26759,7 +26759,7 @@
 	  return Home;
 	}(_react2.default.Component);
 
-	exports.default = (0, _mindful2.default)(Home, 'posts');
+	exports.default = _mindful2.default.subscribe(Home, 'posts');
 
 /***/ },
 /* 237 */
@@ -27033,10 +27033,24 @@
 	        _mindful2.default.retain('subreddits', existingSubreddits);
 	        textField.value = '';
 	      }
+
+	      _mindful2.default.get('getPosts')();
+	    }
+	  }, {
+	    key: 'removeSubreddit',
+	    value: function removeSubreddit(subredditName) {
+	      var subreddits = _mindful2.default.get('subreddits');
+	      var targetIndex = subreddits.indexOf(subredditName);
+	      subreddits.splice(targetIndex, 1);
+	      _mindful2.default.retain('subreddits', subreddits);
+
+	      _mindful2.default.get('getPosts')();
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -27052,7 +27066,9 @@
 	          _mindful2.default.get('subreddits').map(function (name, index) {
 	            return _react2.default.createElement(
 	              'li',
-	              { key: index },
+	              { key: index, onClick: function onClick() {
+	                  _this2.removeSubreddit(name);
+	                } },
 	              name
 	            );
 	          })
@@ -27064,7 +27080,7 @@
 	  return Subreddits;
 	}(_react2.default.Component);
 
-	exports.default = (0, _mindful2.default)(Subreddits, 'subreddits');
+	exports.default = _mindful2.default.subscribe(Subreddits, 'subreddits');
 
 /***/ }
 /******/ ]);

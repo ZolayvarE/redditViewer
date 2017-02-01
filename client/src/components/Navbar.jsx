@@ -8,7 +8,7 @@ var NavBar = (props) => {
         <nav>
           <Link to='/' >Home</Link>
           <span> | </span>
-          <Link to='/subreddits' >About</Link>
+          <Link to='/subreddits' >Configure Subreddits</Link>
         </nav>
       </header>
     </div>

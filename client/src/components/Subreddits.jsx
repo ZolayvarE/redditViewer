@@ -1,5 +1,5 @@
 import React from 'react';
-import mindful from 'mindful';
+import globalState from 'mindful';
 
 class Subreddits extends React.Component {
   constructor(props) {
@@ -11,11 +11,22 @@ class Subreddits extends React.Component {
     var textField = document.getElementById('subredditName');
     var name = textField.value;
     if (name) {
-      var existingSubreddits = mindful.get('subreddits') || [];
+      var existingSubreddits = globalState.get('subreddits') || [];
       existingSubreddits.push(name);
-      mindful.retain('subreddits', existingSubreddits);
+      globalState.retain('subreddits', existingSubreddits);
       textField.value = '';
     }
+
+    globalState.get('getPosts')();
+  }
+
+  removeSubreddit (subredditName) {
+    var subreddits = globalState.get('subreddits');
+    var targetIndex = subreddits.indexOf(subredditName);
+    subreddits.splice(targetIndex, 1);
+    globalState.retain('subreddits', subreddits);
+
+    globalState.get('getPosts')();
   }
 
   render () {
@@ -26,9 +37,9 @@ class Subreddits extends React.Component {
           <input type='submit' />
         </form>
         <ul>
-          { mindful.get('subreddits').map((name, index) => {
+          { globalState.get('subreddits').map((name, index) => {
             return (
-              <li key={index}>
+              <li key={index} onClick={() => { this.removeSubreddit(name); }}>
                 { name }
               </li>
             );
@@ -39,7 +50,7 @@ class Subreddits extends React.Component {
   }
 }
 
-export default mindful(Subreddits, 'subreddits');
+export default globalState.subscribe(Subreddits, 'subreddits');
 
 
 
