@@ -10,6 +10,15 @@ class App extends React.Component {
   }
 
   getPosts(addOntoExisting) {
+    addOntoExisting = addOntoExisting || false;
+
+    if (globalState.get('currentlySearching') === true) {
+      return;
+    } else {
+      globalState.set('currentlySearching', true);
+    }
+
+
     if (!globalState.get('posts') || !addOntoExisting) {
       globalState.set('posts', []);
     }
@@ -20,17 +29,25 @@ class App extends React.Component {
     }
 
     let baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '.json';
-    let queryString = [
-      'limit=25'
-    ].join('&');
+    let queryString = 'limit=50';
+    if (addOntoExisting && globalState.get('after')) {
+      queryString += '&after=' + globalState.get('after');
+    }
 
     fetch(baseURL + '?' + queryString)
       .then((response) => { return response.json(); })
       .then((json) => {
-        console.log('got response!');
+        globalState.set('after', json.data.after);
         globalState.update('posts', (posts) => {
           return posts.concat(json.data.children);
         });
+        globalState.set('currentlySearching', false);
+      })
+      .catch((error) => {
+        globalState.set('currentlySearching', false);
+        setTimeout(() => {
+          globalState.get('getPosts')(addOntoExisting);
+        }, 1000);
       });
   }
 
@@ -42,6 +59,14 @@ class App extends React.Component {
     this.getPosts();
 
     globalState.set('getPosts', this.getPosts.bind(this));
+
+
+    var scrollBox = document.getElementById('scrollBox');
+    window.onscroll = function () {
+      if (document.body.scrollTop + window.innerHeight === document.body.scrollHeight) {
+        globalState.get('getPosts')(true);
+      }
+    };
   }
 
   render() {

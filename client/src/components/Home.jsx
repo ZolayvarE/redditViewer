@@ -1,6 +1,7 @@
 import React from 'react';
 import globalState from 'mindful';
 import Post from './Post.jsx';
+import { scrollBox } from './styles.js';
 
 class Home extends React.Component {
   constructor(props) {
@@ -9,9 +10,11 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
         { globalState.get('posts').map((post, index) => {
-          return (<Post post={post} key={index} />);
+          return (
+            <Post post={post} key={index} />
+          );
         }) }
       </div>
     );

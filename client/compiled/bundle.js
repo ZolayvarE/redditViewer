@@ -26602,6 +26602,14 @@
 	  _createClass(App, [{
 	    key: 'getPosts',
 	    value: function getPosts(addOntoExisting) {
+	      addOntoExisting = addOntoExisting || false;
+
+	      if (_mindful2.default.get('currentlySearching') === true) {
+	        return;
+	      } else {
+	        _mindful2.default.set('currentlySearching', true);
+	      }
+
 	      if (!_mindful2.default.get('posts') || !addOntoExisting) {
 	        _mindful2.default.set('posts', []);
 	      }
@@ -26612,15 +26620,24 @@
 	      }
 
 	      var baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '.json';
-	      var queryString = ['limit=25'].join('&');
+	      var queryString = 'limit=50';
+	      if (addOntoExisting && _mindful2.default.get('after')) {
+	        queryString += '&after=' + _mindful2.default.get('after');
+	      }
 
 	      fetch(baseURL + '?' + queryString).then(function (response) {
 	        return response.json();
 	      }).then(function (json) {
-	        console.log('got response!');
+	        _mindful2.default.set('after', json.data.after);
 	        _mindful2.default.update('posts', function (posts) {
 	          return posts.concat(json.data.children);
 	        });
+	        _mindful2.default.set('currentlySearching', false);
+	      }).catch(function (error) {
+	        _mindful2.default.set('currentlySearching', false);
+	        setTimeout(function () {
+	          _mindful2.default.get('getPosts')(addOntoExisting);
+	        }, 1000);
 	      });
 	    }
 	  }, {
@@ -26633,6 +26650,13 @@
 	      this.getPosts();
 
 	      _mindful2.default.set('getPosts', this.getPosts.bind(this));
+
+	      var scrollBox = document.getElementById('scrollBox');
+	      window.onscroll = function () {
+	        if (document.body.scrollTop + window.innerHeight === document.body.scrollHeight) {
+	          _mindful2.default.get('getPosts')(true);
+	        }
+	      };
 	    }
 	  }, {
 	    key: 'render',
@@ -26725,6 +26749,8 @@
 	var _Post = __webpack_require__(238);
 
 	var _Post2 = _interopRequireDefault(_Post);
+
+	var _styles = __webpack_require__(240);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27081,6 +27107,19 @@
 	}(_react2.default.Component);
 
 	exports.default = _mindful2.default.subscribe(Subreddits, 'subreddits');
+
+/***/ },
+/* 240 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = {
+	  scrollBox: {
+	    'overflowY': 'scroll',
+	    'height': window.innerHeight - 40
+	  }
+	};
 
 /***/ }
 /******/ ]);
