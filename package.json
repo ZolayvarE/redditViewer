@@ -1,22 +1,24 @@
 {
-  "name": "table-tale",
+  "name": "redditViewer",
   "version": "1.0.0",
-  "description": "A small web app for playing tabletop RPGs with friends",
-  "main": "index.js",
+  "description": "",
+  "main": "server/index.js",
   "scripts": {
     "start": "nodemon server/index.js",
+    "commit": "(git add . || true) && (git commit || true) && (git push origin master || true)",
     "compile": "webpack",
-    "watch" : "webpack --watch",
+    "watch": "webpack --watch",
     "deploy": "git checkout master && ((git add . && git commit -m 'Redeploying...') || true) && git push origin master && (git checkout -b deploy || git checkout deploy) && git reset --hard master && git merge master -m 'Update deployment branch' && webpack --optimize-minimize && (rm -rf client/src || true) && ((git add . && git commit -m 'Minifying...') || true) && git push heroku deploy:master -f && git checkout master && heroku open"
   },
   "author": "Eric Zolayvar",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "express": "^4.14.0",
+    "express": "^4.14.1",
     "nodemon": "^1.11.0",
     "path": "^0.12.7",
-    "react": "^15.4.1"
+    "react": "^15.4.1",
+    "request": "^2.79.0"
   },
   "devDependencies": {
     "babel-core": "^6.20.0",
