@@ -64,9 +64,9 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _About = __webpack_require__(235);
+	var _Subreddits = __webpack_require__(239);
 
-	var _About2 = _interopRequireDefault(_About);
+	var _Subreddits2 = _interopRequireDefault(_Subreddits);
 
 	var _Home = __webpack_require__(236);
 
@@ -81,7 +81,7 @@
 	    _reactRouter.Route,
 	    { path: '/', component: _App2.default },
 	    _react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
-	    _react2.default.createElement(_reactRouter.Route, { path: '/about', component: _About2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/subreddits', component: _Subreddits2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '*', component: _Home2.default })
 	  )
 	), document.getElementById('app'));
@@ -26574,10 +26574,6 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _About = __webpack_require__(235);
-
-	var _About2 = _interopRequireDefault(_About);
-
 	var _Home = __webpack_require__(236);
 
 	var _Home2 = _interopRequireDefault(_Home);
@@ -26604,12 +26600,12 @@
 	  }
 
 	  _createClass(App, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
+	    key: 'getPosts',
+	    value: function getPosts() {
 	      var subreddits = _mindful2.default.get('subreddits') || { 'all': true };
 	      _mindful2.default.set('posts', []);
 	      for (var key in subreddits) {
-	        fetch('https://www.reddit.com/r/' + key + '.json').then(function (response) {
+	        fetch('https://www.reddit.com/r/' + key + '.json?count=50').then(function (response) {
 	          return response.json();
 	        }).then(function (json) {
 	          _mindful2.default.update('posts', function (posts) {
@@ -26617,6 +26613,11 @@
 	          });
 	        });
 	      }
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.getPosts();
 	    }
 	  }, {
 	    key: 'render',
@@ -26675,7 +26676,7 @@
 	        ),
 	        _react2.default.createElement(
 	          _reactRouter.Link,
-	          { to: '/about' },
+	          { to: '/subreddits' },
 	          'About'
 	        )
 	      )
@@ -26686,42 +26687,7 @@
 	exports.default = NavBar;
 
 /***/ },
-/* 235 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var About = function About() {
-
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'h3',
-	      null,
-	      'About'
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      'This page was coded by Eric Zolayvar using React'
-	    )
-	  );
-	};
-
-	exports.default = About;
-
-/***/ },
+/* 235 */,
 /* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -26769,8 +26735,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _mindful2.default.get('posts').map(function (post) {
-	          return _react2.default.createElement(_Post2.default, { post: post });
+	        _mindful2.default.get('posts').map(function (post, index) {
+	          return _react2.default.createElement(_Post2.default, { post: post, key: index });
 	        })
 	      );
 	    }
@@ -27004,6 +26970,100 @@
 	};
 
 	exports.default = Post;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _mindful = __webpack_require__(237);
+
+	var _mindful2 = _interopRequireDefault(_mindful);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Subreddits = function (_React$Component) {
+	  _inherits(Subreddits, _React$Component);
+
+	  function Subreddits(props) {
+	    _classCallCheck(this, Subreddits);
+
+	    return _possibleConstructorReturn(this, (Subreddits.__proto__ || Object.getPrototypeOf(Subreddits)).call(this, props));
+	  }
+
+	  _createClass(Subreddits, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var subredditArray = [];
+	      var subredditSet = _mindful2.default.get('subreddits');
+
+	      for (var key in subredditSet) {
+	        subredditArray.push(key);
+	      }
+
+	      _mindful2.default.set('subredditArray', subredditArray);
+	    }
+	  }, {
+	    key: 'addSubreddit',
+	    value: function addSubreddit(e) {
+	      e.preventDefault();
+	      var textField = document.getElementById('subredditName');
+	      var name = textField.value;
+	      if (name) {
+	        var existingSubreddits = _mindful2.default.get('subreddits') || {};
+	        existingSubreddits[name] = true;
+	        _mindful2.default.retain('subreddits', existingSubreddits);
+	        textField.value = '';
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          { onSubmit: this.addSubreddit },
+	          _react2.default.createElement('input', { id: 'subredditName', type: 'text' }),
+	          _react2.default.createElement('input', { type: 'submit' })
+	        ),
+	        _react2.default.createElement(
+	          'ul',
+	          null,
+	          _mindful2.default.get('subredditArray').map(function (name, index) {
+	            return _react2.default.createElement(
+	              'li',
+	              { key: index },
+	              name
+	            );
+	          })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Subreddits;
+	}(_react2.default.Component);
+
+	exports.default = (0, _mindful2.default)(Subreddits, 'subreddits');
 
 /***/ }
 /******/ ]);

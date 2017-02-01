@@ -11,8 +11,8 @@ class Home extends React.Component {
     console.log('rendering Home!');
     return (
       <div>
-        { mindful.get('posts').map((post) => {
-          return (<Post post={post} />);
+        { mindful.get('posts').map((post, index) => {
+          return (<Post post={post} key={index} />);
         }) }
       </div>
     )
