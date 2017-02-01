@@ -1,5 +1,6 @@
 import React from 'react';
 import mindful from 'mindful';
+import Post from './Post.jsx';
 
 class Home extends React.Component {
   constructor(props) {
@@ -7,12 +8,16 @@ class Home extends React.Component {
   }
 
   render() {
+    console.log('rendering Home!');
     return (
       <div>
-        This is the homepage!
+        { mindful.get('posts').map((post) => {
+          return (<Post post={post} />);
+        }) }
       </div>
-    );
+    )
   }
 }
 
-export default Home;
+
+export default mindful(Home, 'posts');

@@ -26582,6 +26582,10 @@
 
 	var _Home2 = _interopRequireDefault(_Home);
 
+	var _mindful = __webpack_require__(237);
+
+	var _mindful2 = _interopRequireDefault(_mindful);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26600,6 +26604,21 @@
 	  }
 
 	  _createClass(App, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var subreddits = _mindful2.default.get('subreddits') || { 'all': true };
+	      _mindful2.default.set('posts', []);
+	      for (var key in subreddits) {
+	        fetch('https://www.reddit.com/r/' + key + '.json').then(function (response) {
+	          return response.json();
+	        }).then(function (json) {
+	          _mindful2.default.update('posts', function (posts) {
+	            return posts.concat(json.data.children);
+	          });
+	        });
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -26722,6 +26741,10 @@
 
 	var _mindful2 = _interopRequireDefault(_mindful);
 
+	var _Post = __webpack_require__(238);
+
+	var _Post2 = _interopRequireDefault(_Post);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26742,10 +26765,13 @@
 	  _createClass(Home, [{
 	    key: 'render',
 	    value: function render() {
+	      console.log('rendering Home!');
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        'This is the homepage!'
+	        _mindful2.default.get('posts').map(function (post) {
+	          return _react2.default.createElement(_Post2.default, { post: post });
+	        })
 	      );
 	    }
 	  }]);
@@ -26753,7 +26779,7 @@
 	  return Home;
 	}(_react2.default.Component);
 
-	exports.default = Home;
+	exports.default = (0, _mindful2.default)(Home, 'posts');
 
 /***/ },
 /* 237 */
@@ -26947,6 +26973,37 @@
 
 
 
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Post = function Post(props) {
+	  console.log(props.post);
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'a',
+	      { href: props.post.data.url, target: '_blank' },
+	      props.post.data.title
+	    )
+	  );
+	};
+
+	exports.default = Post;
 
 /***/ }
 /******/ ]);
