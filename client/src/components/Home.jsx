@@ -1,7 +1,6 @@
 import React from 'react';
 import globalState from 'mindful';
 import Post from './Post.jsx';
-import { scrollBox } from './styles.js';
 
 class Home extends React.Component {
   constructor(props) {

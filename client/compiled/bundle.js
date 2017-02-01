@@ -26698,25 +26698,58 @@
 	    'div',
 	    null,
 	    _react2.default.createElement(
-	      'header',
-	      null,
+	      'nav',
+	      { className: 'navbar navbar-default navbar-fixed-top' },
 	      _react2.default.createElement(
-	        'nav',
-	        null,
+	        'div',
+	        { className: 'container-fluid' },
 	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/' },
-	          'Home'
+	          'div',
+	          { className: 'navbar-header' },
+	          _react2.default.createElement(
+	            'button',
+	            { type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#bs-example-navbar-collapse-1', 'aria-expanded': 'false' },
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'sr-only' },
+	              'Toggle navigation'
+	            ),
+	            _react2.default.createElement('span', { className: 'icon-bar' }),
+	            _react2.default.createElement('span', { className: 'icon-bar' }),
+	            _react2.default.createElement('span', { className: 'icon-bar' })
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/', className: 'navbar-brand' },
+	            'Eric\'s Amazing Reddit Viewer'
+	          )
 	        ),
 	        _react2.default.createElement(
-	          'span',
-	          null,
-	          ' | '
-	        ),
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/subreddits' },
-	          'Configure Subreddits'
+	          'div',
+	          { className: 'collapse navbar-collapse', id: 'bs-example-navbar-collapse-1' },
+	          _react2.default.createElement(
+	            'ul',
+	            { className: 'nav navbar-nav navbar-right' },
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/' },
+	                'Home'
+	              )
+	            ),
+	            _react2.default.createElement('li', { role: 'separator', className: 'divider' }),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                _reactRouter.Link,
+	                { to: '/subreddits' },
+	                'Configure Subreddits'
+	              )
+	            )
+	          )
 	        )
 	      )
 	    )
@@ -26749,8 +26782,6 @@
 	var _Post = __webpack_require__(238);
 
 	var _Post2 = _interopRequireDefault(_Post);
-
-	var _styles = __webpack_require__(240);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27107,19 +27138,6 @@
 	}(_react2.default.Component);
 
 	exports.default = _mindful2.default.subscribe(Subreddits, 'subreddits');
-
-/***/ },
-/* 240 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	module.exports = {
-	  scrollBox: {
-	    'overflowY': 'scroll',
-	    'height': window.innerHeight - 40
-	  }
-	};
 
 /***/ }
 /******/ ]);
