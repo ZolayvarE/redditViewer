@@ -26600,24 +26600,11 @@
 	  }
 
 	  _createClass(App, [{
-	    key: 'getPosts',
-	    value: function getPosts() {
-	      var subreddits = _mindful2.default.get('subreddits') || { 'all': true };
-	      _mindful2.default.set('posts', []);
-	      for (var key in subreddits) {
-	        fetch('https://www.reddit.com/r/' + key + '.json?count=50').then(function (response) {
-	          return response.json();
-	        }).then(function (json) {
-	          _mindful2.default.update('posts', function (posts) {
-	            return posts.concat(json.data.children);
-	          });
-	        });
-	      }
-	    }
-	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.getPosts();
+	      if (!_mindful2.default.get('subreddits')) {
+	        _mindful2.default.set('subreddits', []);
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -26729,6 +26716,33 @@
 	  }
 
 	  _createClass(Home, [{
+	    key: 'getPosts',
+	    value: function getPosts() {
+	      var subreddits = _mindful2.default.get('subreddits');
+	      if (!subreddits.length) {
+	        subreddits = ['all'];
+	      }
+
+	      _mindful2.default.set('posts', []);
+	      subreddits.forEach(function (subreddit) {
+
+	        var link = 'https://www.reddit.com/r/' + subreddit + '.json?count=50';
+	        console.log(link);
+	        fetch(link).then(function (response) {
+	          return response.json();
+	        }).then(function (json) {
+	          _mindful2.default.update('posts', function (posts) {
+	            return posts.concat(json.data.children);
+	          });
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.getPosts();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      console.log('rendering Home!');
@@ -26957,7 +26971,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Post = function Post(props) {
-	  console.log(props.post);
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -27009,26 +27022,14 @@
 	  }
 
 	  _createClass(Subreddits, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      var subredditArray = [];
-	      var subredditSet = _mindful2.default.get('subreddits');
-
-	      for (var key in subredditSet) {
-	        subredditArray.push(key);
-	      }
-
-	      _mindful2.default.set('subredditArray', subredditArray);
-	    }
-	  }, {
 	    key: 'addSubreddit',
 	    value: function addSubreddit(e) {
 	      e.preventDefault();
 	      var textField = document.getElementById('subredditName');
 	      var name = textField.value;
 	      if (name) {
-	        var existingSubreddits = _mindful2.default.get('subreddits') || {};
-	        existingSubreddits[name] = true;
+	        var existingSubreddits = _mindful2.default.get('subreddits') || [];
+	        existingSubreddits.push(name);
 	        _mindful2.default.retain('subreddits', existingSubreddits);
 	        textField.value = '';
 	      }
@@ -27048,7 +27049,7 @@
 	        _react2.default.createElement(
 	          'ul',
 	          null,
-	          _mindful2.default.get('subredditArray').map(function (name, index) {
+	          _mindful2.default.get('subreddits').map(function (name, index) {
 	            return _react2.default.createElement(
 	              'li',
 	              { key: index },

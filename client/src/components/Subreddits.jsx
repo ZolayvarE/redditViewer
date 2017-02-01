@@ -6,24 +6,13 @@ class Subreddits extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
-    var subredditArray = [];
-    var subredditSet = mindful.get('subreddits');
-
-    for (var key in subredditSet) {
-      subredditArray.push(key);
-    }
-
-    mindful.set('subredditArray', subredditArray);
-  }
-
   addSubreddit (e) {
     e.preventDefault();
     var textField = document.getElementById('subredditName');
     var name = textField.value;
     if (name) {
-      var existingSubreddits = mindful.get('subreddits') || {};
-      existingSubreddits[name] = true;
+      var existingSubreddits = mindful.get('subreddits') || [];
+      existingSubreddits.push(name);
       mindful.retain('subreddits', existingSubreddits);
       textField.value = '';
     }
@@ -37,7 +26,7 @@ class Subreddits extends React.Component {
           <input type='submit' />
         </form>
         <ul>
-          { mindful.get('subredditArray').map((name, index) => {
+          { mindful.get('subreddits').map((name, index) => {
             return (
               <li key={index}>
                 { name }
