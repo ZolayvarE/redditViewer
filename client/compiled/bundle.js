@@ -26766,6 +26766,25 @@
 	                { className: 'nav navbar-nav navbar-right' },
 	                _react2.default.createElement(
 	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/' },
+	                    'Home'
+	                  )
+	                ),
+	                _react2.default.createElement('li', { role: 'separator', className: 'divider' }),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/subreddits' },
+	                    'Pick Subreddits'
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'li',
 	                  { className: 'dropdown' },
 	                  _react2.default.createElement(
 	                    'a',
@@ -26821,25 +26840,6 @@
 	                        'Controversial'
 	                      )
 	                    )
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: '/' },
-	                    'Home'
-	                  )
-	                ),
-	                _react2.default.createElement('li', { role: 'separator', className: 'divider' }),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    _reactRouter.Link,
-	                    { to: '/subreddits' },
-	                    'Configure Subreddits'
 	                  )
 	                )
 	              )
@@ -27166,13 +27166,18 @@
 	          { className: "otherInfo" },
 	          _react2.default.createElement(
 	            "a",
-	            { href: 'https://reddit.com/u/' + props.post.data.author, target: "_blank" },
-	            props.post.data.author
+	            { href: 'https://reddit.com/comments/' + props.post.data.id, target: "_blank" },
+	            "Comments"
 	          ),
 	          _react2.default.createElement(
 	            "a",
-	            { href: 'https://reddit.com/comments/' + props.post.data.id, target: "_blank" },
-	            "Comments"
+	            { href: 'https://reddit.com/r/' + props.post.data.subreddit, target: "_blank" },
+	            '/r/' + props.post.data.subreddit
+	          ),
+	          _react2.default.createElement(
+	            "a",
+	            { href: 'https://reddit.com/u/' + props.post.data.author, target: "_blank" },
+	            '/u/' + props.post.data.author
 	          )
 	        )
 	      )

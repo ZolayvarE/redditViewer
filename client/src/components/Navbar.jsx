@@ -29,6 +29,9 @@ class NavBar extends React.Component {
 
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav navbar-right">
+                <li><Link to='/'>Home</Link></li>
+                <li role="separator" className="divider"></li>
+                <li><Link to='/subreddits'>Pick Subreddits</Link></li>
                 <li className="dropdown">
                   <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Order By <span className="caret"></span></a>
                   <ul className="dropdown-menu">
@@ -39,9 +42,6 @@ class NavBar extends React.Component {
                     <li><a href="#" onClick={this.sortBy.bind(null, 'controversial')}>Controversial</a></li>
                   </ul>
                 </li>
-                <li><Link to='/'>Home</Link></li>
-                <li role="separator" className="divider"></li>
-                <li><Link to='/subreddits'>Configure Subreddits</Link></li>
               </ul>
             </div>
           </div>

@@ -18,11 +18,14 @@ var Post = (props) => {
             ({ props.post.data.domain }) 
           </div>
           <div className="otherInfo">
-            <a href={'https://reddit.com/u/' + props.post.data.author} target='_blank'>
-              { props.post.data.author }
-            </a>
             <a href={'https://reddit.com/comments/' + props.post.data.id} target='_blank'>
               Comments
+            </a>
+            <a href={'https://reddit.com/r/' + props.post.data.subreddit} target='_blank'>
+              {'/r/' + props.post.data.subreddit}
+            </a>
+            <a href={'https://reddit.com/u/' + props.post.data.author} target='_blank'>
+              { '/u/' + props.post.data.author }
             </a>
           </div>
         </div>
