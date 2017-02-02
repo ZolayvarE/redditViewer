@@ -27156,23 +27156,82 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'form',
-	          { onSubmit: this.addSubreddit },
-	          _react2.default.createElement('input', { id: 'subredditName', type: 'text' }),
-	          _react2.default.createElement('input', { type: 'submit' })
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement('div', { className: 'col-xs-0 col-sm-2' }),
+	          _react2.default.createElement(
+	            'h3',
+	            { className: 'col-xs-12 col-sm-8' },
+	            _react2.default.createElement(
+	              'center',
+	              null,
+	              'Which subreddits would you like to browse?'
+	            )
+	          ),
+	          _react2.default.createElement('div', { className: 'col-xs-0 col-sm-2' })
 	        ),
 	        _react2.default.createElement(
-	          'ul',
-	          null,
-	          _mindful2.default.get('subreddits').map(function (name, index) {
-	            return _react2.default.createElement(
-	              'li',
-	              { key: index, onClick: function onClick() {
-	                  _this2.removeSubreddit(name);
-	                } },
-	              name
-	            );
-	          })
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement('div', { className: 'col-xs-1 col-sm-3' }),
+	          _react2.default.createElement(
+	            'form',
+	            { onSubmit: this.addSubreddit, className: 'col-xs-10 col-sm-6 input-group' },
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'input-group-addon', id: 'basic-addon1' },
+	              'reddit.com/r/'
+	            ),
+	            _react2.default.createElement('input', { type: 'text', id: 'subredditName', className: 'form-control', placeholder: 'Any subreddit name goes here...', 'aria-describedby': 'sizing-addon1' })
+	          ),
+	          _react2.default.createElement('div', { className: 'col-xs-1 col-sm-3' })
+	        ),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement('div', { className: 'col-xs-0 col-sm-2' }),
+	          _react2.default.createElement(
+	            'h4',
+	            { className: 'col-xs-12 col-sm-8' },
+	            _react2.default.createElement(
+	              'center',
+	              null,
+	              'You are currently browsing:',
+	              _mindful2.default.get('subreddits').length ? _mindful2.default.get('subreddits').map(function (name, index) {
+	                return _react2.default.createElement(
+	                  'div',
+	                  { className: 'subredditListItem' },
+	                  _react2.default.createElement(
+	                    'h4',
+	                    { key: index },
+	                    '/r/' + name.toLowerCase()
+	                  ),
+	                  _react2.default.createElement(
+	                    'h5',
+	                    { className: 'removeButton', onClick: function onClick() {
+	                        _this2.removeSubreddit(name);
+	                      } },
+	                    _react2.default.createElement(
+	                      'a',
+	                      { href: '#', className: 'removeButton' },
+	                      'X'
+	                    )
+	                  )
+	                );
+	              }) : _react2.default.createElement(
+	                'div',
+	                { className: 'subredditListItem' },
+	                _react2.default.createElement(
+	                  'h4',
+	                  null,
+	                  'The Front Page'
+	                )
+	              )
+	            )
+	          ),
+	          _react2.default.createElement('div', { className: 'col-xs-0 col-sm-2' })
 	        )
 	      );
 	    }

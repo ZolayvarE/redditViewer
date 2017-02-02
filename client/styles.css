@@ -45,3 +45,25 @@ body {
 .otherInfo * {
   margin-right: 15px;
 }
+
+.subredditListItem {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.removeButton {
+  margin-left: 15px;
+  color: red;
+}
+
+
+
+
+
+
