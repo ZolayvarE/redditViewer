@@ -65,8 +65,8 @@ class Subreddits extends React.Component {
                 globalState.get('subreddits').length ?
                 globalState.get('subreddits').map((name, index) => {
                   return (
-                    <div className="subredditListItem">
-                      <h4 key={index} >
+                    <div className="subredditListItem" key={index}>
+                      <h4 >
                         { '/r/' + name.toLowerCase() }
                       </h4>
                       <h5 className="removeButton" onClick={() => { this.removeSubreddit(name); }}>

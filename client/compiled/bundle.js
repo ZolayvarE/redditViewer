@@ -27299,10 +27299,10 @@
 	              _mindful2.default.get('subreddits').length ? _mindful2.default.get('subreddits').map(function (name, index) {
 	                return _react2.default.createElement(
 	                  'div',
-	                  { className: 'subredditListItem' },
+	                  { className: 'subredditListItem', key: index },
 	                  _react2.default.createElement(
 	                    'h4',
-	                    { key: index },
+	                    null,
 	                    '/r/' + name.toLowerCase()
 	                  ),
 	                  _react2.default.createElement(
