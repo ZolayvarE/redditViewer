@@ -64,7 +64,7 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Subreddits = __webpack_require__(239);
+	var _Subreddits = __webpack_require__(238);
 
 	var _Subreddits2 = _interopRequireDefault(_Subreddits);
 
@@ -26578,7 +26578,7 @@
 
 	var _Home2 = _interopRequireDefault(_Home);
 
-	var _mindful = __webpack_require__(237);
+	var _mindful = __webpack_require__(235);
 
 	var _mindful2 = _interopRequireDefault(_mindful);
 
@@ -26598,6 +26598,12 @@
 
 	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 	  }
+
+	  // I know this function is huge. If I had time I would go back
+	  // and break it up into several smaller functions.
+	  // What it is doing is basically just querying reddit
+	  // and adding posts to the globalState
+
 
 	  _createClass(App, [{
 	    key: 'getPosts',
@@ -26698,7 +26704,7 @@
 
 	var _reactRouter = __webpack_require__(178);
 
-	var _mindful = __webpack_require__(237);
+	var _mindful = __webpack_require__(235);
 
 	var _mindful2 = _interopRequireDefault(_mindful);
 
@@ -26755,7 +26761,7 @@
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { to: '/', className: 'navbar-brand' },
-	                'Eric\'s Wonderous Reddit Viewer'
+	                'Wondrous Reddit Viewer'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -26858,71 +26864,7 @@
 	exports.default = NavBar;
 
 /***/ },
-/* 235 */,
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _mindful = __webpack_require__(237);
-
-	var _mindful2 = _interopRequireDefault(_mindful);
-
-	var _Post = __webpack_require__(238);
-
-	var _Post2 = _interopRequireDefault(_Post);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Home = function (_React$Component) {
-	  _inherits(Home, _React$Component);
-
-	  function Home(props) {
-	    _classCallCheck(this, Home);
-
-	    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
-	  }
-
-	  _createClass(Home, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'ul',
-	          { className: 'list-group' },
-	          _mindful2.default.get('posts').map(function (post, index) {
-	            return _react2.default.createElement(_Post2.default, { post: post, key: index });
-	          })
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Home;
-	}(_react2.default.Component);
-
-	exports.default = _mindful2.default.subscribe(Home, 'posts');
-
-/***/ },
-/* 237 */
+/* 235 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27115,7 +27057,70 @@
 
 
 /***/ },
-/* 238 */
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _mindful = __webpack_require__(235);
+
+	var _mindful2 = _interopRequireDefault(_mindful);
+
+	var _Post = __webpack_require__(237);
+
+	var _Post2 = _interopRequireDefault(_Post);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Home = function (_React$Component) {
+	  _inherits(Home, _React$Component);
+
+	  function Home(props) {
+	    _classCallCheck(this, Home);
+
+	    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
+	  }
+
+	  _createClass(Home, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'list-group' },
+	          _mindful2.default.get('posts').map(function (post, index) {
+	            return _react2.default.createElement(_Post2.default, { post: post, key: index });
+	          })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Home;
+	}(_react2.default.Component);
+
+	exports.default = _mindful2.default.subscribe(Home, 'posts');
+
+/***/ },
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27188,7 +27193,7 @@
 	exports.default = Post;
 
 /***/ },
-/* 239 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27203,7 +27208,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _mindful = __webpack_require__(237);
+	var _mindful = __webpack_require__(235);
 
 	var _mindful2 = _interopRequireDefault(_mindful);
 

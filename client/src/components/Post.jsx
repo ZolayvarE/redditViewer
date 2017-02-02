@@ -7,7 +7,7 @@ var Post = (props) => {
       <li className="list-group-item post">
         <h5 className="score">
           {props.post.data.score}
-        </h5>
+        </h5> 
         <div className="infoBox">
           <h5 className="link">
             <a href={props.post.data.url} target='_blank'>
