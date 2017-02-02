@@ -26615,11 +26615,13 @@
 	      }
 
 	      var subreddits = _mindful2.default.get('subreddits');
+
 	      if (!subreddits.length) {
-	        subreddits = ['all'];
+	        var baseURL = 'https://www.reddit.com/hot.json';
+	      } else {
+	        var baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '.json';
 	      }
 
-	      var baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '.json';
 	      var queryString = 'limit=50';
 	      if (addOntoExisting && _mindful2.default.get('after')) {
 	        queryString += '&after=' + _mindful2.default.get('after');
@@ -26806,9 +26808,13 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _mindful2.default.get('posts').map(function (post, index) {
-	          return _react2.default.createElement(_Post2.default, { post: post, key: index });
-	        })
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'list-group' },
+	          _mindful2.default.get('posts').map(function (post, index) {
+	            return _react2.default.createElement(_Post2.default, { post: post, key: index });
+	          })
+	        )
 	      );
 	    }
 	  }]);
@@ -27015,7 +27021,7 @@
 /* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -27029,12 +27035,45 @@
 
 	var Post = function Post(props) {
 	  return _react2.default.createElement(
-	    'div',
+	    "div",
 	    null,
 	    _react2.default.createElement(
-	      'a',
-	      { href: props.post.data.url, target: '_blank' },
-	      props.post.data.title
+	      "li",
+	      { className: "list-group-item post" },
+	      _react2.default.createElement(
+	        "h5",
+	        { className: "score" },
+	        props.post.data.score
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "infoBox" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "link" },
+	          _react2.default.createElement(
+	            "h5",
+	            null,
+	            _react2.default.createElement(
+	              "a",
+	              { href: props.post.data.url, target: "_blank" },
+	              props.post.data.title
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "domain" },
+	            "(",
+	            props.post.data.domain,
+	            ")"
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          null,
+	          props.post.data.author
+	        )
+	      )
 	    )
 	  );
 	};

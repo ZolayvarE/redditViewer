@@ -1,1 +1,31 @@
-body { padding-top: 55px; }
+body { 
+  padding-top: 51px; 
+}
+
+.post {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.score {
+  width: 30px;
+  margin-right: 25px;
+}
+
+.link {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.domain {
+}

@@ -10,11 +10,13 @@ class Home extends React.Component {
   render() {
     return (
       <div >
-        { globalState.get('posts').map((post, index) => {
-          return (
-            <Post post={post} key={index} />
-          );
-        }) }
+        <ul className="list-group">
+          { globalState.get('posts').map((post, index) => {
+            return (
+              <Post post={post} key={index} />
+            );
+          }) }
+        </ul>
       </div>
     );
   }

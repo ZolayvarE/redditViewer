@@ -24,11 +24,13 @@ class App extends React.Component {
     }
 
     var subreddits = globalState.get('subreddits');
-    if (!subreddits.length) {
-      subreddits = ['all'];
-    }
 
-    let baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '.json';
+    if (!subreddits.length) {
+      var baseURL = 'https://www.reddit.com/hot.json';
+    } else {
+      var baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '.json';
+    }
+    
     let queryString = 'limit=50';
     if (addOntoExisting && globalState.get('after')) {
       queryString += '&after=' + globalState.get('after');
