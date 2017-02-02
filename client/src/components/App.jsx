@@ -31,7 +31,7 @@ class App extends React.Component {
       var baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '.json';
     }
     
-    let queryString = 'limit=50';
+    let queryString = 'limit=20';
     if (addOntoExisting && globalState.get('after')) {
       queryString += '&after=' + globalState.get('after');
     }

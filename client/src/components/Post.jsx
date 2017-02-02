@@ -21,6 +21,9 @@ var Post = (props) => {
             <a href={'https://reddit.com/u/' + props.post.data.author} target='_blank'>
               { props.post.data.author }
             </a>
+            <a href={'https://reddit.com/comments/' + props.post.data.id} target='_blank'>
+              Comments
+            </a>
           </div>
         </div>
       </li>

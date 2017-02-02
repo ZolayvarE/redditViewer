@@ -26622,7 +26622,7 @@
 	        var baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '.json';
 	      }
 
-	      var queryString = 'limit=50';
+	      var queryString = 'limit=20';
 	      if (addOntoExisting && _mindful2.default.get('after')) {
 	        queryString += '&after=' + _mindful2.default.get('after');
 	      }
@@ -27071,6 +27071,11 @@
 	            "a",
 	            { href: 'https://reddit.com/u/' + props.post.data.author, target: "_blank" },
 	            props.post.data.author
+	          ),
+	          _react2.default.createElement(
+	            "a",
+	            { href: 'https://reddit.com/comments/' + props.post.data.id, target: "_blank" },
+	            "Comments"
 	          )
 	        )
 	      )

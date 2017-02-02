@@ -41,3 +41,7 @@ body {
 .domain {
   color: gray;
 }
+
+.otherInfo * {
+  margin-right: 15px;
+}
