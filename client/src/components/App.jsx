@@ -25,16 +25,21 @@ class App extends React.Component {
 
     var subreddits = globalState.get('subreddits');
 
+    var sortBy = globalState.get('sortBy') || 'hot';
     if (!subreddits.length) {
-      var baseURL = 'https://www.reddit.com/hot.json';
+      var baseURL = 'https://www.reddit.com/' + sortBy + '.json';
     } else {
-      var baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '.json';
+      var baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '/' + sortBy + '.json';
     }
+
+
     
     let queryString = 'limit=20';
     if (addOntoExisting && globalState.get('after')) {
       queryString += '&after=' + globalState.get('after');
     }
+
+    console.log(baseURL + '?' + queryString);
 
     fetch(baseURL + '?' + queryString)
       .then((response) => { return response.json(); })
@@ -60,7 +65,7 @@ class App extends React.Component {
 
     this.getPosts();
 
-    globalState.set('getPosts', this.getPosts.bind(this));
+    globalState.set('getPosts', this.getPosts);
 
 
     var scrollBox = document.getElementById('scrollBox');

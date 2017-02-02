@@ -26616,16 +26616,19 @@
 
 	      var subreddits = _mindful2.default.get('subreddits');
 
+	      var sortBy = _mindful2.default.get('sortBy') || 'hot';
 	      if (!subreddits.length) {
-	        var baseURL = 'https://www.reddit.com/hot.json';
+	        var baseURL = 'https://www.reddit.com/' + sortBy + '.json';
 	      } else {
-	        var baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '.json';
+	        var baseURL = 'https://www.reddit.com/r/' + subreddits.join('+') + '/' + sortBy + '.json';
 	      }
 
 	      var queryString = 'limit=20';
 	      if (addOntoExisting && _mindful2.default.get('after')) {
 	        queryString += '&after=' + _mindful2.default.get('after');
 	      }
+
+	      console.log(baseURL + '?' + queryString);
 
 	      fetch(baseURL + '?' + queryString).then(function (response) {
 	        return response.json();
@@ -26651,7 +26654,7 @@
 
 	      this.getPosts();
 
-	      _mindful2.default.set('getPosts', this.getPosts.bind(this));
+	      _mindful2.default.set('getPosts', this.getPosts);
 
 	      var scrollBox = document.getElementById('scrollBox');
 	      window.onscroll = function () {
@@ -26687,76 +26690,170 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reactRouter = __webpack_require__(178);
 
+	var _mindful = __webpack_require__(237);
+
+	var _mindful2 = _interopRequireDefault(_mindful);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var NavBar = function NavBar(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'nav',
-	      { className: 'navbar navbar-default navbar-fixed-top' },
-	      _react2.default.createElement(
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NavBar = function (_React$Component) {
+	  _inherits(NavBar, _React$Component);
+
+	  function NavBar(props) {
+	    _classCallCheck(this, NavBar);
+
+	    return _possibleConstructorReturn(this, (NavBar.__proto__ || Object.getPrototypeOf(NavBar)).call(this, props));
+	  }
+
+	  _createClass(NavBar, [{
+	    key: 'sortBy',
+	    value: function sortBy(input) {
+	      _mindful2.default.set('sortBy', input);
+	      _mindful2.default.get('getPosts')();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
 	        'div',
-	        { className: 'container-fluid' },
+	        null,
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'navbar-header' },
+	          'nav',
+	          { className: 'navbar navbar-default navbar-fixed-top' },
 	          _react2.default.createElement(
-	            'button',
-	            { type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#bs-example-navbar-collapse-1', 'aria-expanded': 'false' },
+	            'div',
+	            { className: 'container-fluid' },
 	            _react2.default.createElement(
-	              'span',
-	              { className: 'sr-only' },
-	              'Toggle navigation'
-	            ),
-	            _react2.default.createElement('span', { className: 'icon-bar' }),
-	            _react2.default.createElement('span', { className: 'icon-bar' }),
-	            _react2.default.createElement('span', { className: 'icon-bar' })
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/', className: 'navbar-brand' },
-	            'Eric\'s Amazing Reddit Viewer'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'collapse navbar-collapse', id: 'bs-example-navbar-collapse-1' },
-	          _react2.default.createElement(
-	            'ul',
-	            { className: 'nav navbar-nav navbar-right' },
-	            _react2.default.createElement(
-	              'li',
-	              null,
+	              'div',
+	              { className: 'navbar-header' },
+	              _react2.default.createElement(
+	                'button',
+	                { type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#bs-example-navbar-collapse-1', 'aria-expanded': 'false' },
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'sr-only' },
+	                  'Toggle navigation'
+	                ),
+	                _react2.default.createElement('span', { className: 'icon-bar' }),
+	                _react2.default.createElement('span', { className: 'icon-bar' }),
+	                _react2.default.createElement('span', { className: 'icon-bar' })
+	              ),
 	              _react2.default.createElement(
 	                _reactRouter.Link,
-	                { to: '/' },
-	                'Home'
+	                { to: '/', className: 'navbar-brand' },
+	                'Eric\'s Wonderous Reddit Viewer'
 	              )
 	            ),
-	            _react2.default.createElement('li', { role: 'separator', className: 'divider' }),
 	            _react2.default.createElement(
-	              'li',
-	              null,
+	              'div',
+	              { className: 'collapse navbar-collapse', id: 'bs-example-navbar-collapse-1' },
 	              _react2.default.createElement(
-	                _reactRouter.Link,
-	                { to: '/subreddits' },
-	                'Configure Subreddits'
+	                'ul',
+	                { className: 'nav navbar-nav navbar-right' },
+	                _react2.default.createElement(
+	                  'li',
+	                  { className: 'dropdown' },
+	                  _react2.default.createElement(
+	                    'a',
+	                    { href: '#', className: 'dropdown-toggle', 'data-toggle': 'dropdown', role: 'button', 'aria-haspopup': 'true', 'aria-expanded': 'false' },
+	                    'Order By ',
+	                    _react2.default.createElement('span', { className: 'caret' })
+	                  ),
+	                  _react2.default.createElement(
+	                    'ul',
+	                    { className: 'dropdown-menu' },
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      _react2.default.createElement(
+	                        'a',
+	                        { href: '#', onClick: this.sortBy.bind(null, 'hot') },
+	                        'Hot'
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      _react2.default.createElement(
+	                        'a',
+	                        { href: '#', onClick: this.sortBy.bind(null, 'top') },
+	                        'Top'
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      _react2.default.createElement(
+	                        'a',
+	                        { href: '#', onClick: this.sortBy.bind(null, 'new') },
+	                        'New'
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      _react2.default.createElement(
+	                        'a',
+	                        { href: '#', onClick: this.sortBy.bind(null, 'rising') },
+	                        'Rising'
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'li',
+	                      null,
+	                      _react2.default.createElement(
+	                        'a',
+	                        { href: '#', onClick: this.sortBy.bind(null, 'controversial') },
+	                        'Controversial'
+	                      )
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/' },
+	                    'Home'
+	                  )
+	                ),
+	                _react2.default.createElement('li', { role: 'separator', className: 'divider' }),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    _reactRouter.Link,
+	                    { to: '/subreddits' },
+	                    'Configure Subreddits'
+	                  )
+	                )
 	              )
 	            )
 	          )
 	        )
-	      )
-	    )
-	  );
-	};
+	      );
+	    }
+	  }]);
+
+	  return NavBar;
+	}(_react2.default.Component);
+
+	;
 
 	exports.default = NavBar;
 
