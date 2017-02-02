@@ -8,21 +8,19 @@ var Post = (props) => {
         <h5 className="score">
           {props.post.data.score}
         </h5>
-
         <div className="infoBox">
-          <div className="link">
-            <h5>
-              <a href={props.post.data.url} target='_blank'>
-                { props.post.data.title }
-              </a>
-            </h5>
-            <div className="domain">
-              ({ props.post.data.domain }) 
-            </div>
+          <h5 className="link">
+            <a href={props.post.data.url} target='_blank'>
+              { props.post.data.title }
+            </a>
+          </h5>
+          <div className="domain">
+            ({ props.post.data.domain }) 
           </div>
-
-          <div>
-            { props.post.data.author }
+          <div className="otherInfo">
+            <a href={'https://reddit.com/u/' + props.post.data.author} target='_blank'>
+              { props.post.data.author }
+            </a>
           </div>
         </div>
       </li>

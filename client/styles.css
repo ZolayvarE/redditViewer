@@ -3,6 +3,7 @@ body {
 }
 
 .post {
+  padding: 5px 15px 5px 15px;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
@@ -16,16 +17,27 @@ body {
   margin-right: 25px;
 }
 
-.link {
+.infobox {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
-  -webkit-align-items: center;
-  align-items: center;
+  -webkit-align-items: space-around;
+  align-items: space-around;
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
 
+.link {
+  margin: 0px;
+}
+
+.infoBox * {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+
 .domain {
+  color: gray;
 }

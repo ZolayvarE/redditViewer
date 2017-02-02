@@ -27049,29 +27049,29 @@
 	        "div",
 	        { className: "infoBox" },
 	        _react2.default.createElement(
-	          "div",
+	          "h5",
 	          { className: "link" },
 	          _react2.default.createElement(
-	            "h5",
-	            null,
-	            _react2.default.createElement(
-	              "a",
-	              { href: props.post.data.url, target: "_blank" },
-	              props.post.data.title
-	            )
-	          ),
-	          _react2.default.createElement(
-	            "div",
-	            { className: "domain" },
-	            "(",
-	            props.post.data.domain,
-	            ")"
+	            "a",
+	            { href: props.post.data.url, target: "_blank" },
+	            props.post.data.title
 	          )
 	        ),
 	        _react2.default.createElement(
 	          "div",
-	          null,
-	          props.post.data.author
+	          { className: "domain" },
+	          "(",
+	          props.post.data.domain,
+	          ")"
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "otherInfo" },
+	          _react2.default.createElement(
+	            "a",
+	            { href: 'https://reddit.com/u/' + props.post.data.author, target: "_blank" },
+	            props.post.data.author
+	          )
 	        )
 	      )
 	    )
