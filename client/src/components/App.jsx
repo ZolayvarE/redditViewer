@@ -9,6 +9,10 @@ class App extends React.Component {
     super(props);
   }
 
+  // I know this function is huge. If I had time I would go back
+  // and break it up into several smaller functions.
+  // What it is doing is basically just querying reddit
+  // and adding posts to the globalState
   getPosts(addOntoExisting) {
     addOntoExisting = addOntoExisting || false;
 
